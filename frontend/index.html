@@ -11,31 +11,72 @@
       padding: 0;
       background: linear-gradient(to bottom, #f8f9fa, #e9ecef);
       color: #333;
-      text-align: center;
     }
 
     header {
-      background-color: #FF5C5C; /* Cor vibrante para chamar atenção */
+      background-color: #FF5C5C; /* Cor vibrante */
       color: white;
       padding: 20px;
-      font-size: 24px;
-      font-weight: bold;
+      text-align: center;
+      position: relative;
     }
 
-    h1 {
-      margin: 20px 0;
+    header img.logo {
+      max-height: 50px;
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+
+    .header-text {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 10px;
+    }
+
+    .header-gif {
+      margin-top: 10px;
+    }
+
+    .header-gif img {
+      max-height: 100px; /* Tamanho ajustado para o GIF */
     }
 
     .content {
       margin: 20px;
+      text-align: center;
     }
 
     .promo-message {
-      margin-top: 40px;
+      margin: 40px auto;
       padding: 20px;
-      background-color: #ffd166; /* Cor descontraída */
+      background-color: #ffd166;
       border-radius: 8px;
       font-size: 18px;
+      max-width: 800px;
+      text-align: center;
+    }
+
+    .sections {
+      margin: 20px;
+      padding: 20px;
+    }
+
+    .section {
+      margin-bottom: 40px;
+      padding: 20px;
+      background: white;
+      border-radius: 8px;
+      box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    .section img {
+      width: auto;
+      max-width: 200px;
+      max-height: 150px;
+      margin: 10px 0;
+      border-radius: 8px;
     }
 
     footer {
@@ -44,6 +85,7 @@
       background-color: #333;
       color: white;
       font-size: 14px;
+      text-align: center;
     }
 
     .footer-link {
@@ -58,11 +100,15 @@
 </head>
 <body>
   <header>
-    Bem-vindo ao Teste da Amo Promo 🚀
+    <img class="logo" src="https://www.amopromo.com/images/logo-amo-promo.svg" alt="Logo Amo Promo">
+    <div class="header-text">Bem-vindo ao Teste da Amo Promo 🚀</div>
   </header>
 
   <div class="content">
     <h1>Teste de Eventos em Tempo Real</h1>
+    <div class="header-gif">
+      <img src="https://www.amopromo.com/images/amopromo-gif.gif" alt="Amo Promo GIF">
+    </div>
     <p>
       Este MVP foi desenvolvido com carinho para demonstrar minhas habilidades e colaborar com a <strong>Amo Promo</strong>.
     </p>
@@ -75,8 +121,36 @@
     </div>
   </div>
 
+  <div class="sections">
+    <div class="section">
+      <h2>Explore as Ofertas da Amo Promo</h2>
+      <p>
+        A Amo Promo conecta pessoas às melhores promoções do mercado. Descubra descontos incríveis e economize com confiança!
+      </p>
+      <img src="https://static.vecteezy.com/ti/vetor-gratis/p1/10483238-cashback-loyalty-program-banner-concept-cash-back-service-promo-sign-with-returned-gold-coins-on-credit-card-in-wallet-money-or-bonus-refund-advertising-financial-ilustracaoial-de-cracha-de-pagamento-vetor.jpg" alt="Cashback">
+    </div>
+
+    <div class="section">
+      <h2>Por que Escolher a Amo Promo?</h2>
+      <p>
+        Somos apaixonados por promoções! Oferecemos uma plataforma segura e prática para encontrar as melhores ofertas de produtos e serviços.
+      </p>
+      <img src="https://w7.pngwing.com/pngs/329/259/png-transparent-business-youtube-sales-graphy-oferta-love-text-heart-thumbnail.png" alt="Ofertas">
+    </div>
+
+    <div class="section">
+      <h2>Depoimentos de Clientes</h2>
+      <p>
+        "Com a Amo Promo, eu consigo economizar em grandes compras! Recomendo para todos que adoram promoções." - João Silva
+      </p>
+      <img src="https://cdn-icons-png.flaticon.com/512/2132/2132647.png" alt="Depoimentos">
+    </div>
+  </div>
+
   <footer>
-    Desenvolvido por Rafael Apolinário para a <a href="#" class="footer-link">Amo Promo</a> © 2024
+    Desenvolvido por Rafael Apolinário para a <a href="https://www.amopromo.com/" class="footer-link" target="_blank">Amo Promo</a> © 2024
   </footer>
+
+  <script src="client.js"></script>
 </body>
 </html>

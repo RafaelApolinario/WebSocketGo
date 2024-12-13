@@ -36,7 +36,11 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 
 		err := conn.ReadJSON(&msg)
 		if err != nil {
-			logger.WithError(err).Warn("Erro ao ler mensagem ou conexão encerrada pelo cliente")
+			if websocket.IsCloseError(err, websocket.CloseGoingAway, websocket.CloseNormalClosure) {
+				logger.Info("Conexão encerrada pelo cliente.")
+			} else {
+				logger.WithError(err).Warn("Erro ao ler mensagem")
+			}
 			break
 		}
 
