@@ -7,6 +7,7 @@ import (
 	logrus "github.com/sirupsen/logrus"
 	"encoding/json"
 	"github.com/gorilla/websocket"
+	"WebSocketGo/backend/db"
 )
 
 var upgrader = websocket.Upgrader{
@@ -16,6 +17,8 @@ var upgrader = websocket.Upgrader{
 }
 
 var logger = logrus.New()
+var clients = make(map[*websocket.Conn]bool) // Lista de clientes conectados
+var broadcast = make(chan map[string]interface{}) // Canal de transmissão de mensagens
 
 func handleConnections(w http.ResponseWriter, r *http.Request) {
 	conn, err := upgrader.Upgrade(w, r, nil)
@@ -25,6 +28,7 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 	}
 	defer conn.Close()
 
+	clients[conn] = true
 	logger.Info("Nova conexão WebSocket estabelecida")
 
 	for {
@@ -41,6 +45,7 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 			} else {
 				logger.WithError(err).Warn("Erro ao ler mensagem")
 			}
+			delete(clients, conn)
 			break
 		}
 
@@ -56,16 +61,29 @@ func handleConnections(w http.ResponseWriter, r *http.Request) {
 			continue
 		}
 
-		logger.WithFields(logrus.Fields{
+		broadcast <- map[string]interface{}{
 			"event_type": msg.EventType,
 			"data":       string(msg.Data),
 			"timestamp":  msg.Timestamp,
-		}).Info("Evento registrado")
+		}
+	}
+}
+
+func handleBroadcast() {
+	for {
+		msg := <-broadcast
+		for client := range clients {
+			err := client.WriteJSON(msg)
+			if err != nil {
+				logger.WithError(err).Warn("Erro ao enviar mensagem ao cliente")
+				client.Close()
+				delete(clients, client)
+			}
+		}
 	}
 }
 
 func main() {
-	// Use o caminho absoluto do arquivo .env
 	err := godotenv.Load("C:\\Users\\Teknisa Software\\go\\src\\WebSocketGo\\.env")
 	if err != nil {
 		logger.Warn("Não foi possível carregar .env. Usando variáveis de ambiente do sistema.")
@@ -73,7 +91,10 @@ func main() {
 		logger.Info("Arquivo .env carregado com sucesso.")
 	}
 
-	initDB()
+	db.InitDB()
+
+	go handleBroadcast()
+
 	http.HandleFunc("/ws", handleConnections)
 	logger.Info("Servidor WebSocket rodando em :8080")
 	log.Fatal(http.ListenAndServe(":8080", nil))

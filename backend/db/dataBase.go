@@ -1,4 +1,4 @@
-package main
+package db
 
 import (
 	"database/sql"
@@ -10,7 +10,7 @@ import (
 
 var db *sql.DB
 
-func initDB() {
+func InitDB() {
 	var err error
 
 	host := os.Getenv("DB_HOST")
@@ -41,6 +41,9 @@ func initDB() {
 	createTable()
 }
 
+func Exec(query string, args ...interface{}) (sql.Result, error) {
+	return db.Exec(query, args...)
+}
 
 func createTable() {
 	query := `
@@ -51,7 +54,6 @@ func createTable() {
 		timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 	);
 	`
-
 	_, err := db.Exec(query)
 	if err != nil {
 		log.Fatalf("Erro ao criar tabela: %v", err)

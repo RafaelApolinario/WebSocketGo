@@ -1,27 +1,58 @@
-## Dependências
+# WebSocketGo
 
-### Requisitos para o Backend
-Certifique-se de ter as seguintes ferramentas instaladas:
+> Sistema de coleta e armazenamento de dados utilizando WebSocket, com backend em Go e frontend em JavaScript.
 
-1. **Go (versão 1.23 ou superior)**  
-   [Download e instalação do Go](https://go.dev/dl/).
+## Sobre o Projeto
+Este projeto implementa um sistema completo para coleta de eventos em páginas web utilizando WebSocket. Os dados coletados são armazenados em um banco de dados relacional e podem ser utilizados para análise de interação do usuário em tempo real.
 
-2. **PostgreSQL (versão 9.6 ou superior)**  
-   Banco de dados relacional para armazenamento dos eventos.  
-   [Download e instalação do PostgreSQL](https://www.postgresql.org/download/).
+## Objetivo
+- Criar um **backend** em Go para gerenciar conexões WebSocket, registrar eventos em um banco de dados PostgreSQL e exibir logs.
+- Desenvolver um **frontend** em JavaScript que colete e envie eventos de interação para o servidor.
 
-3. **Bibliotecas do Go**
-   No diretório do projeto, instale as seguintes dependências:
-   - **`github.com/lib/pq`**: Driver PostgreSQL para Go.
-     ```bash
-     go get github.com/lib/pq
-     ```
-   - **`github.com/gorilla/websocket`**: Biblioteca para gerenciar conexões WebSocket.
-     ```bash
-     go get github.com/gorilla/websocket
-     ```
+## Pré-requisitos
+Antes de começar, instale as seguintes ferramentas:
+- [Go](https://golang.org/doc/install)
+- [Node.js](https://nodejs.org)
+- [PostgreSQL](https://www.postgresql.org/download)
 
-### Requisitos para o Frontend
-Certifique-se de ter um navegador moderno e um editor de texto para modificar o frontend:
-- Google Chrome, Mozilla Firefox ou outro navegador compatível.
-- Editor de texto como VSCode ou Sublime Text.
+## Configuração do Projeto
+
+### Instalação
+Siga as etapas para configurar o ambiente:
+
+1. Clone este repositório:
+   ```bash
+   git clone https://github.com/RafaelApolinario/WebSocketGo.git
+   cd WebSocketGo
+
+2. Execute o script de configuração para instalar as dependências do backend e do frontend:
+
+   **PowerShell**:
+   ```bash
+   ``.\scripts\setup.ps1``
+
+   **Linux/Mac**:
+   ``./scripts/setup.sh``
+
+## Configure o banco de dados PostgreSQL:
+
+3. Crie uma tabela events com a estrutura:
+sql
+Copiar código
+``      CREATE TABLE events (
+         id SERIAL PRIMARY KEY,
+         event_type VARCHAR(255),
+         data JSONB,
+         timestamp TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+      );``
+
+Atualize o arquivo .env no backend com as credenciais do banco.
+
+### Como Executar:
+
+   **PowerShell**:
+   ```bash
+   ``.\scripts\start.ps1``
+
+   **Linux/Mac**:
+   ``./scripts/start.sh``
