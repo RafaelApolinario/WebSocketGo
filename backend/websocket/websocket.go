@@ -16,6 +16,8 @@ var (
 	Broadcast = make(chan map[string]interface{})
 )
 
+const authToken = "seu_token_secreto" // Substitua por algo mais seguro em produção
+
 type Message struct {
 	EventType string          `json:"event_type"`
 	Data      json.RawMessage `json:"data"`
@@ -23,6 +25,13 @@ type Message struct {
 }
 
 func HandleConnections(w http.ResponseWriter, r *http.Request) {
+	token := r.URL.Query().Get("token")
+	if token != authToken {
+		http.Error(w, "Token inválido ou ausente", http.StatusUnauthorized)
+		logger.Warn("Tentativa de conexão com token inválido.")
+		return
+	}
+
 	conn, err := upgrader.Upgrade(w, r, nil)
 	if err != nil {
 		logger.WithError(err).Error("Erro ao estabelecer conexão WebSocket")

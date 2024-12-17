@@ -1,7 +1,8 @@
 export let socket;
 
 export function connectWebSocket(onMessageCallback) {
-  socket = new WebSocket("ws://localhost:8080/ws");
+  const token = "seu_token_secreto";
+  socket = new WebSocket(`ws://localhost:8080/ws?token=${token}`);
 
   socket.onopen = () => console.log("Conexão WebSocket estabelecida");
   socket.onerror = (error) => console.error("Erro no WebSocket:", error);
