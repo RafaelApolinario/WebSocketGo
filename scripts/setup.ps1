@@ -1,7 +1,7 @@
 Write-Host "Iniciando a configuração do ambiente..." -ForegroundColor Green
 
-# Navegar para o diretório raiz do projeto
-cd .. # Volta para a raiz do projeto (WebSocketGo)
+# Define o caminho absoluto do diretório raiz
+$projectRoot = (Get-Item $PSScriptRoot).Parent.FullName
 
 # 1. Verifica se o Go está instalado
 if (-not (Get-Command go -ErrorAction SilentlyContinue)) {
@@ -17,14 +17,14 @@ if (-not (Get-Command node -ErrorAction SilentlyContinue)) {
 
 # 3. Configuração do backend
 Write-Host "Instalando dependências do backend..." -ForegroundColor Yellow
-Push-Location ./backend
+Push-Location "$projectRoot\backend"
 go mod tidy
 go mod download
 Pop-Location
 
 # 4. Configuração do frontend
 Write-Host "Instalando dependências do frontend..." -ForegroundColor Yellow
-Push-Location ./frontend
+Push-Location "$projectRoot\frontend"
 npm install http-server --save-dev
 npm install -g lite-server
 Pop-Location
