@@ -1,7 +1,1 @@
 # Arquivos e pastas ignorados
-/bin/
-/pkg/
-/vendor/
-*.exe
-*.log
-*.db

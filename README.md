@@ -1,3 +1,4 @@
+
 # WebSocketGo
 
 > Sistema de coleta e armazenamento de dados utilizando WebSocket, com backend em Go e frontend em JavaScript.
@@ -8,6 +9,10 @@ Este projeto implementa um sistema completo para coleta de eventos em páginas w
 ## Objetivo
 - Criar um **backend** em Go para gerenciar conexões WebSocket, registrar eventos em um banco de dados PostgreSQL e exibir logs.
 - Desenvolver um **frontend** em JavaScript que colete e envie eventos de interação para o servidor.
+
+<img width="1000" src="assets\tela.png"/>
+
+<img width="1000" src="assets\telaConsole.png"/>
 
 ## Pré-requisitos
 Antes de começar, instale as seguintes ferramentas:
@@ -24,15 +29,23 @@ Siga as etapas para configurar o ambiente:
    ```bash
    git clone https://github.com/RafaelApolinario/WebSocketGo.git
    cd WebSocketGo
+   ```
 
 2. Execute o script de configuração para instalar as dependências do backend e do frontend:
 
    **PowerShell**:
-   ```bash
-   ``.\scripts\setup.ps1``
+
+   ```
+   cd scripts
+   .\setup.ps1
+   ```
 
    **Linux/Mac**:
-   ``./scripts/setup.sh``
+
+   ```
+   cd scripts
+   .\setup.ps1
+   ```
 
 ## Configure o banco de dados PostgreSQL:
 
@@ -48,11 +61,19 @@ Copiar código
 
 Atualize o arquivo .env no backend com as credenciais do banco.
 
-### Como Executar:
+   ### Como Executar:
 
    **PowerShell**:
-   ```bash
-   ``.\scripts\start.ps1``
+
+   ```
+   cd scripts
+   .\start.ps1
+   ```
 
    **Linux/Mac**:
-   ``./scripts/start.sh``
+   
+   ```
+   cd scripts
+   chmod +x setup.sh start.sh
+   ./start.sh
+   ```

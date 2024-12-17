@@ -2,29 +2,22 @@ package db
 
 import (
 	"database/sql"
-	"log"
-	"os"
 	"fmt"
+	"log"
+
 	_ "github.com/lib/pq"
+	"WebSocketGo/backend/config"
 )
 
 var db *sql.DB
 
-func InitDB() {
+func InitDB(cfg *config.Config) {
 	var err error
 
-	host := os.Getenv("DB_HOST")
-	port := os.Getenv("DB_PORT")
-	user := os.Getenv("DB_USER")
-	pass := os.Getenv("DB_PASS")
-	name := os.Getenv("DB_NAME")
-
-	if host == "" || port == "" || user == "" || pass == "" || name == "" {
-		log.Fatalf("Erro: Uma ou mais variáveis de ambiente do banco de dados estão ausentes")
-	}
-
-	connStr := fmt.Sprintf("host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
-		host, port, user, pass, name)
+	connStr := fmt.Sprintf(
+		"host=%s port=%s user=%s password=%s dbname=%s sslmode=disable",
+		cfg.DBHost, cfg.DBPort, cfg.DBUser, cfg.DBPass, cfg.DBName,
+	)
 
 	db, err = sql.Open("postgres", connStr)
 	if err != nil {
