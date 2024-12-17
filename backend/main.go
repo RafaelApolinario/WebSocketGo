@@ -13,8 +13,13 @@ import (
 var logger = logrus.New()
 
 func main() {
-	cfg := config.LoadConfig("C:\\Users\\Teknisa Software\\go\\src\\WebSocketGo\\.env")
-	logger.Info("Configurações carregadas com sucesso.")
+	workingDir, err := os.Getwd()
+	if err != nil {
+		logger.Fatal("Erro ao obter o diretório de trabalho:", err)
+	}
+
+	envPath := filepath.Join(workingDir, ".env")
+	cfg := config.LoadConfig(envPath)	logger.Info("Configurações carregadas com sucesso.")
 
 	db.InitDB(cfg)
 
