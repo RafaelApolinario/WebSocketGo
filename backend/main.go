@@ -6,7 +6,8 @@ import (
 	"WebSocketGo/backend/config"
 	"WebSocketGo/backend/db"
 	"WebSocketGo/backend/websocket"
-
+	"os"            
+	"path/filepath" 
 	logrus "github.com/sirupsen/logrus"
 )
 
@@ -19,7 +20,8 @@ func main() {
 	}
 
 	envPath := filepath.Join(workingDir, ".env")
-	cfg := config.LoadConfig(envPath)	logger.Info("Configurações carregadas com sucesso.")
+	cfg := config.LoadConfig(envPath)
+	logger.Info("Configurações carregadas com sucesso.")
 
 	db.InitDB(cfg)
 
